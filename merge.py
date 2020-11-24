@@ -13,9 +13,9 @@ def mergeSort(arr):
         mergeSort(left_half)
         mergeSort(right_half)
 
-        i=0
-        j=0
-        k=0
+        i = 0
+        j = 0
+        k = 0
         while i < len(left_half) and j < len(right_half):
             if left_half[i] <= right_half[j]:
                 arr[k] = left_half[i]
