@@ -4,6 +4,7 @@ SORTED_LIST = [8, 9, 13, 26, 29, 32, 36, 49, 58, 62, 65, 67, 69, 73, 75, 83, 85,
 
 # Python program for implementation of Insertion Sort
 
+
 # Function to do insertion sort
 def insertionSort(arr):
 
