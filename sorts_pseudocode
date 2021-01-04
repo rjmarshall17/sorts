@@ -1,0 +1,227 @@
+Bubble Sort:
+------------
+Time complexity O(n**2)
+
+Bubble sort, sometimes referred to as sinking sort, is a simple sorting algorithm that repeatedly
+steps through the list, compares adjacent elements and swaps them if they are in the wrong order.
+The pass through the list is repeated until the list is sorted. The algorithm, which is a comparison
+sort, is named for the way smaller or larger elements "bubble" to the top of the list.
+
+This simple algorithm performs poorly in real world use and is used primarily as an educational tool.
+More efficient algorithms such as quicksort, timsort, or merge sort are used by the sorting libraries
+built into popular programming languages such as Python and Java.
+
+bubble sort function parameters: array to sort
+    n <- length of array
+    for index in range n - 1
+        for index2 in range 0, n - i - 1
+            if array[index2] > array[index2 + 1]
+                array[index2], array[index2 + 1] <- array[index2 + 1], array[index2]
+
+Insertion Sort:
+---------------
+Time complexity O(n**2)
+
+Insertion sort is a sorting algorithm in which the elements are transferred one at a time to the right
+position. In other words, an insertion sort helps in building the final sorted list, one item at a time,
+with the movement of higher-ranked elements. An insertion sort has the benefits of simplicity and low
+overhead.
+
+insertion sort function parameters: array to sort
+    # Traverse through 1 to len(arr)
+    for index in range 1, length of array
+        key <- array[index]
+
+        # Move elements of arr[0..i-1], that are
+        # greater than key, to one position ahead
+        # of their current position
+
+        index2 <- index - 1
+        loop while index2 >= 0 and key < array[index2]
+            array[index2 + 1] <- array[index2]
+            index2 -= 1
+        array[index2 + 1] <- key
+
+Merge Sort:
+-----------
+Time complexity O(n(log n))
+
+A merge sort is a divide and conquer algorithm that breaks down the sort into smaller parts
+that can be solved directly.
+
+In computer science, merge sort (also commonly spelled mergesort) is an efficient, general-purpose,
+comparison-based sorting algorithm. Most implementations produce a stable sort, which means that the
+order of equal elements is the same in the input and output. Merge sort is a divide and conquer
+algorithm that was invented by John von Neumann in 1945.[2] A detailed description and analysis of
+bottom-up merge sort appeared in a report by Goldstine and von Neumann as early as 1948.
+
+merge sort function parameters: array to sort
+    if length of array > 1
+        mid <- len(array) // 2
+        left half <- array[:mid]
+        right half <- array[mid:]
+
+        call merge sort with left half
+        call merge sort with right half
+
+        i <- 0
+        j <- 0
+        k <- 0
+        loop while i < length of left half and j < length of right half
+            if left half[i] <= right half[j]
+                array[k] <- left half[i]
+                i += 1
+            else
+                array[k]<- right half[j]
+                j += 1
+            k += 1
+
+        loop while i < length of left half
+            array[k] <- left half[i]
+            i += 1
+            k += 1
+
+        loop while j < length of right half
+            array[k] <- right half[j]
+            j += 1
+            k += 1
+
+Quick Sort:
+-----------
+Time complexity O(n**2)
+
+Quicksort (sometimes called partition-exchange sort) is an efficient sorting algorithm. Developed by
+British computer scientist Tony Hoare in 1959[1] and published in 1961,[2] it is still a commonly used
+algorithm for sorting. When implemented well, it can be about two or three times faster than its main
+competitors, merge sort and heapsort.
+
+Quicksort is a divide-and-conquer algorithm. It works by selecting a 'pivot' element from the array and
+partitioning the other elements into two sub-arrays, according to whether they are less than or greater
+than the pivot. The sub-arrays are then sorted recursively. This can be done in-place, requiring small
+additional amounts of memory to perform the sorting.
+
+Quicksort is a comparison sort, meaning that it can sort items of any type for which a "less-than" relation
+(formally, a total order) is defined. Efficient implementations of Quicksort are not a stable sort, meaning
+that the relative order of equal sort items is not preserved.
+
+Mathematical analysis of quicksort shows that, on average, the algorithm takes O(n log n) comparisons to sort
+n items. In the worst case, it makes O(n2) comparisons, though this behavior is rare.
+
+# This function takes last element as pivot, places the pivot element at its correct position in sorted
+# array, and places all smaller (smaller than pivot) to left of pivot and all greater elements to right
+# of pivot
+
+partition function parameters: array to sort, low, high
+    i <- low - 1
+    pivot <- array[high]
+    for j in range(low, high)
+        # If current element is smaller than the pivot
+        if array[j] < pivot
+            # increment index of smaller element
+            array[i], array[j] <- array[j], array[i]
+    array[i + 1], array[high] <- array[high], array[i + 1]
+    return i + 1
+
+# The main function that implements QuickSort
+# arr[] --> Array to be sorted,
+# low --> Starting index,
+# high --> Ending index
+
+# Function to do Quick sort
+quick sort function parameters: array to sort, low, high
+    if low < high
+        # pi is partitioning index, arr[p] is now at right place
+        pi <- result of call to partition with array, low high
+        # Separately sort elements before partition and after partition
+        call quick sort with array, low, pi - 1
+        call quick sort with array, pi + 1, high
+
+Tim Sort:
+---------
+Time complexity is O(n(log n))
+
+From wikipedia:
+
+Timsort is a hybrid stable sorting algorithm, derived from merge sort and insertion sort, designed to perform
+well on many kinds of real-world data. It was implemented by Tim Peters in 2002 for use in the Python programming
+language. The algorithm finds subsequences of the data that are already ordered (runs) and uses them to sort the
+remainder more efficiently. This is done by merging runs until certain criteria are fulfilled. Timsort has been
+Python's standard sorting algorithm since version 2.3. It is also used to sort arrays of non-primitive type in
+Java SE 7,[4] on the Android platform,[5] in GNU Octave,[6] on V8,[7] Swift,[8] and Rust.[9]
+
+It uses techniques from Peter McIlroy's 1993 paper "Optimistic Sorting and Information Theoretic Complexity".[10]
+
+calculate minimum run function parameters: n
+    Returns the minimum length of a run from 23 - 64 so that
+    the len(array)/minrun is less than or equal to a power of 2.
+
+    e.g. 1=>1, ..., 63=>63, 64=>32, 65=>33, ..., 127=>64, 128=>32, ...
+
+    r <- 0
+    loop while n >= MIN_MERGE:
+        r |= n & 1
+        n >>= 1
+    return n + r
+
+# This function sorts array from left index to to right index which is of size at most RUN
+insertion sort function parameters: array to sort, left, right
+    for index in range left + 1, right + 1
+        j <- i
+        loop while j > left and array[j] < array[j - 1]
+            array[j], array[j - 1] <- array[j - 1], array[j]
+            j -= 1
+
+# The merge function merges the sorted runs
+merge function parameters: array to sort, left, middle, right
+    # original array is broken in two parts left and right array
+    length1, length2 <- middle - left + 1, right - middle
+    left, right <- [], []
+    for i in range 0 to length1
+        left.append(array[l + i])
+    for i in range 0 to length2
+        right.append(array[middle + 1 + i])
+
+    i, j, k <- 0, 0, left
+    # after comparing, we merge those two array in larger sub array
+    loop while i < length1 and j < length2
+        if left[i] <= right[j]
+            array[k] <- left[i]
+            i += 1
+        else
+            array[k] <- right[j]
+            j += 1
+        k += 1
+
+    # Copy remaining elements of left, if any
+    loop while i < length1
+        array[k] <- left[i]
+        k += 1
+        i += 1
+
+    # Copy remaining element of right, if any
+    loop while j < length2
+        array[k] <- right[j]
+        k += 1
+        j += 1
+
+# Iterative Timsort function to sort the array[0...n-1] (similar to merge sort)
+tim sort function parameters: array to sort
+    n <- length of array
+    minRun <- call calculate minimum run with n
+
+    # Sort individual subarrays of size RUN
+    for start in range 0, n, minRun
+        end <- minimum of start + minRun - 1, n - 1
+        call insertion sort with: array, start, end
+
+    # Start merging from size RUN (or 32). It will merge to form size 64, then 128, 256 and so on ....
+    size <- minRun
+    loop while size < n
+        # Pick starting point of left sub array. We are going to merge arr[left..left+size-1]
+        # and arr[left+size, left+2*size-1] After every merge, we increase left by 2*size
+        for left in range 0, n, 2 * size
+            mid <- minimum of n - 1, left + size - 1
+            right <- minimum of left + 2 * size - 1, n - 1
+            # Merge sub array arr[left.....mid] & arr[mid+1....right]
+            call merge with array, left, mid, right
+        size *= 2
