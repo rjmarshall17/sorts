@@ -88,7 +88,7 @@ merge sort function parameters: array to sort
 
 Quick Sort:
 -----------
-Time complexity O(n**2)
+Time complexity O(n log n) worst case: O(n**2)
 
 Quicksort (sometimes called partition-exchange sort) is an efficient sorting algorithm. Developed by
 British computer scientist Tony Hoare in 1959[1] and published in 1961,[2] it is still a commonly used
